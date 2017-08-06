@@ -1,0 +1,35 @@
+{
+  "condition": "OR",
+  "rules": [
+    {
+      "id": "constants_true",
+      "field": "Constants -> true",
+      "type": "string",
+      "input": "text",
+      "operator": "equal",
+      "value": "true"
+    },
+    {
+      "condition": "AND",
+      "rules": [
+        {
+          "id": "mock_foobar",
+          "field": "Mock -> Foobar",
+          "type": "double",
+          "input": "number",
+          "operator": "less",
+          "value": "20"
+        },
+        {
+          "id": "mock_foobar",
+          "field": "Mock -> Foobar",
+          "type": "double",
+          "input": "number",
+          "operator": "greater",
+          "value": "10"
+        }
+      ]
+    }
+  ],
+  "valid": true
+}

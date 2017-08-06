@@ -1,0 +1,22 @@
+{
+  "condition": "OR",
+  "rules": [
+    {
+      "id": "FIRSTNAME",
+      "field": "FIRSTNAME",
+      "type": "string",
+      "input": "text",
+      "operator": "equal",
+      "value": "Andre"
+    },
+    {
+      "id": "LASTNAME",
+      "field": "LASTNAME",
+      "type": "string",
+      "input": "text",
+      "operator": "equal",
+      "value": "Wachsmuth"
+    }
+  ],
+  "valid": true
+}
