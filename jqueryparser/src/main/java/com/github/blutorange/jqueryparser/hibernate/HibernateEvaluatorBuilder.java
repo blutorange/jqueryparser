@@ -48,9 +48,9 @@ public class HibernateEvaluatorBuilder extends EvaluatorBuilder<Criterion, Hiber
 			@Nullable final Consumer<OperatorRuleFactoryBuilder<Criterion, String, HibernateContext>> consumer)
 			throws QueryBuilderEvaluatorException {
 		setRuleFactory(OperatorRuleFactoryBuilder.create(builder -> {
-			builder.addOperators(Constants.TYPE_STRING, EHibernateOperator.class)
-					.addOperators(Constants.TYPE_INTEGER, EHibernateOperator.class)
-					.addOperators(Constants.TYPE_DOUBLE, EHibernateOperator.class);
+			builder.addOperators(Constants.TYPE_STRING, EHibernateStringOperator.class)
+					.addOperators(Constants.TYPE_INTEGER, EHibernateIntegerOperator.class)
+					.addOperators(Constants.TYPE_DOUBLE, EHibernateDoubleOperator.class);
 			if (consumer != null)
 				consumer.accept(builder);
 		}));
