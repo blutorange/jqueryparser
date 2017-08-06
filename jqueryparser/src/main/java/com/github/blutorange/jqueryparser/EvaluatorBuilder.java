@@ -57,6 +57,7 @@ public class EvaluatorBuilder<@NonNull T, @NonNull C>
 
 	@Override
 	public IQueryBuilderEvaluator<@NonNull T, @NonNull C> build() throws QueryBuilderEvaluatorException {
+		beforeBuild();
 		final IRuleFactory<@NonNull T, @NonNull C> ruleFactory = this.ruleFactory;
 		final IConditionFactory<@NonNull T, @NonNull C> conditionFactory = this.conditionFactory;
 		final NonNullSupplier<@NonNull C> contextSupplier = this.contextSupplier;
@@ -66,11 +67,23 @@ public class EvaluatorBuilder<@NonNull T, @NonNull C>
 			throw new QueryBuilderEvaluatorException(Codes.PRECONDITION, "condition factory is null"); //$NON-NLS-1$
 		if (contextSupplier == null)
 			throw new QueryBuilderEvaluatorException(Codes.PRECONDITION, "context supplier is null"); //$NON-NLS-1$
-		final QueryBuilderEvaluator<@NonNull T, @NonNull C> qbe = new QueryBuilderEvaluator<>(conditionFactory,
+		final QueryBuilderEvaluator<@NonNull T, @NonNull C> queryBuilderEvaluator = new QueryBuilderEvaluator<>(conditionFactory,
 				ruleFactory, contextSupplier);
 		this.conditionFactory = null;
 		this.ruleFactory = null;
 		this.contextSupplier = null;
-		return qbe;
+		afterBuild(queryBuilderEvaluator);
+		return queryBuilderEvaluator;
+	}
+
+	/**
+	 * @param queryBuilderEvaluator
+	 */
+	protected void afterBuild(final QueryBuilderEvaluator<T, C> queryBuilderEvaluator) {
+		// May be overridden.
+	}
+
+	protected void beforeBuild() {
+		// May be overridden.
 	}
 }

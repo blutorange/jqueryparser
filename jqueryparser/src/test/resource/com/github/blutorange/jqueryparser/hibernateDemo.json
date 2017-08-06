@@ -1,0 +1,48 @@
+{
+  "condition": "AND",
+  "rules": [
+    {
+	  "condition": "OR",
+	  "rules": [
+	    {
+	      "id": "firstName",
+	      "field": "firstName",
+	      "type": "string",
+	      "input": "text",
+	      "operator": "equal",
+	      "value": "Andre"
+	    },
+	    {
+	      "id": "lastName",
+	      "field": "lastName",
+	      "type": "string",
+	      "input": "text",
+	      "operator": "equal",
+	      "value": "Wachsmuth"
+	    }	  
+	  ]
+    },
+    {
+	  "condition": "OR",
+	  "rules": [
+	    {
+	      "id": "age",
+	      "field": "age",
+	      "type": "integer",
+	      "input": "text",
+	      "operator": "greater",
+	      "value": "18"
+	    },
+	    {
+	      "id": "parent.id",
+	      "field": "hasAdult",
+	      "type": "integer",
+	      "input": "text",
+	      "operator": "is_not_null",
+	      "value": null
+	    }	  
+	  ]
+    }    
+  ],
+  "valid": true
+}

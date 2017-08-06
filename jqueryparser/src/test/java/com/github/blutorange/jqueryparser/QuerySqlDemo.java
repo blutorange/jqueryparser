@@ -7,9 +7,6 @@ import java.sql.SQLException;
 
 import javax.inject.Provider;
 
-import org.apache.commons.io.IOUtils;
-
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.blutorange.jqueryparser.querydsl.QuerySqlEvaluatorBuilder;
 import com.querydsl.core.types.PathMetadata;
@@ -26,18 +23,14 @@ import com.querydsl.sql.RelationalPathBase;
 import com.querydsl.sql.SQLQueryFactory;
 
 @SuppressWarnings({ "nls" })
-public class QuerySqlDemo {
+public class QuerySqlDemo extends AbstractDemo {
 	@SuppressWarnings("null")
 	public static void main(final String[] args) throws QueryBuilderEvaluatorException, IOException {
 		// Now build the evaluator.
 		final RelationalPath<QPerson> path = new QPerson("p");
 
 		// Get test data...
-		final String json = IOUtils.toString(QuerySqlDemo.class.getClassLoader()
-				.getResourceAsStream("com/github/blutorange/jqueryparser/querysqlDemo.json"));
-		final JSONObject group = JSON.parseObject(json);
-		if (group == null)
-			throw new QueryBuilderEvaluatorException("JSON parse error", "");
+		final JSONObject group = getGroup("com/github/blutorange/jqueryparser/querysqlDemo.json");
 
 		// Evaluate the test data.
 		// Keep a reference to the evaluator builder if you want to use it multiple times.

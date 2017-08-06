@@ -10,14 +10,38 @@ import com.github.blutorange.jqueryparser.EnumConditionFactory;
 import com.github.blutorange.jqueryparser.EvaluatorBuilder;
 import com.github.blutorange.jqueryparser.OperatorRuleFactoryBuilder;
 import com.github.blutorange.jqueryparser.QueryBuilderEvaluatorException;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 
 public class HibernateEvaluatorBuilder extends EvaluatorBuilder<Criterion, HibernateContext> {
+	/**
+	 * Maps between the ID prefix and the entity alias.
+	 */
+	@Nullable
+	private Builder<String, String> map;
+
+	@Nullable
+	private String entityNameSeparator;
+
 	public HibernateEvaluatorBuilder() {
-		setContextSupplier(new HibernateContext());
+		this("."); //$NON-NLS-1$
+	}
+
+	public HibernateEvaluatorBuilder(final String entityNamePrefix) {
+		this.entityNameSeparator = entityNamePrefix;
+	}
+
+	private ImmutableMap.Builder<String, String> getMap() {
+		return map != null ? map : (map = new ImmutableMap.Builder<>());
 	}
 
 	public HibernateEvaluatorBuilder defaultRuleFactory() throws QueryBuilderEvaluatorException {
 		return defaultRuleFactory(null);
+	}
+
+	public HibernateEvaluatorBuilder addAssociationAlias(final String associationName, final String alias) {
+		getMap().put(associationName, alias);
+		return this;
 	}
 
 	public HibernateEvaluatorBuilder defaultRuleFactory(
@@ -42,5 +66,12 @@ public class HibernateEvaluatorBuilder extends EvaluatorBuilder<Criterion, Hiber
 		defaultConditionFactory();
 		defaultRuleFactory();
 		return this;
+	}
+
+	@Override
+	protected void beforeBuild() {
+		setContextSupplier(new HibernateContext(entityNameSeparator != null ? entityNameSeparator : ".", getMap())); //$NON-NLS-1$
+		map = null;
+		entityNameSeparator = null;
 	}
 }

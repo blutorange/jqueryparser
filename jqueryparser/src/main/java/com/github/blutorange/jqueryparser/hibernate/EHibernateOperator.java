@@ -57,12 +57,12 @@ public enum EHibernateOperator implements IOperator<Criterion, HibernateContext,
 		return mapper.map(field, values);
 	}
 
-	private interface Mapper {
-		Criterion map(String field, String[] values) throws QueryBuilderEvaluatorException;
-	}
-
 	@Override
 	public String getOperatorName() {
 		return name().toLowerCase(Locale.ROOT);
+	}
+
+	private interface Mapper {
+		Criterion map(String field, String[] values) throws QueryBuilderEvaluatorException;
 	}
 }
