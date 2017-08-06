@@ -10,7 +10,16 @@
 	<name>jqueryparser</name>
 	<url>http://maven.apache.org</url>
 
+	<repositories>
+		<repository>
+			<id>CT84625</id>
+			<name>CT84625-releases</name>
+			<url>http://artifactory.xima-services.de/artifactory/libs-release-local</url>
+		</repository>
+	</repositories>
+
 	<properties>
+		<xfc-version>5.0.0</xfc-version>
 		<m2e.jdt.annotationpath>/nullannotation/src/main/java</m2e.jdt.annotationpath>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<fast-json-version>1.2.35</fast-json-version>
@@ -39,13 +48,27 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.2.4.Final</version>
 		</dependency>
-<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-<dependency>
-    <groupId>com.h2database</groupId>
-    <artifactId>h2</artifactId>
-    <version>1.4.196</version>
-    <scope>test</scope>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.196</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>de.xima.fc</groupId>
+			<artifactId>fc-plugin-common</artifactId>
+			<version>${xfc-version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>de.xima.fc</groupId>
+			<artifactId>fc-logic</artifactId>
+			<version>${xfc-version}</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>
