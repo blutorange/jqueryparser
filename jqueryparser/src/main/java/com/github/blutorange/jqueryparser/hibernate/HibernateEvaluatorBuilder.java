@@ -18,30 +18,42 @@ public class HibernateEvaluatorBuilder extends EvaluatorBuilder<Criterion, Hiber
 	 * Maps between the ID prefix and the entity alias.
 	 */
 	@Nullable
-	private Builder<String, String> map;
+	private Builder<String, String> entityAliasMap;
 
 	@Nullable
-	private String entityNameSeparator;
+	private Builder<String, String> fieldAliasMap;
+
+	@Nullable
+	private String entityFieldSeparator;
 
 	public HibernateEvaluatorBuilder() {
 		this("."); //$NON-NLS-1$
 	}
 
-	public HibernateEvaluatorBuilder(final String entityNamePrefix) {
-		this.entityNameSeparator = entityNamePrefix;
+	public HibernateEvaluatorBuilder(final String entityFieldPrefix) {
+		this.entityFieldSeparator = entityFieldPrefix;
 	}
 
-	private ImmutableMap.Builder<String, String> getMap() {
-		return map != null ? map : (map = new ImmutableMap.Builder<>());
+	private ImmutableMap.Builder<String, String> getEntityMap() {
+		return entityAliasMap != null ? entityAliasMap : (entityAliasMap = new ImmutableMap.Builder<>());
+	}
+
+	private ImmutableMap.Builder<String, String> getFieldMap() {
+		return fieldAliasMap != null ? fieldAliasMap : (fieldAliasMap = new ImmutableMap.Builder<>());
+	}
+
+	public HibernateEvaluatorBuilder addEntityAlias(final String entityName, final String alias) {
+		getEntityMap().put(entityName, alias);
+		return this;
+	}
+
+	public HibernateEvaluatorBuilder addFieldAlias(final String fieldName, final String fieldAlias) {
+		getFieldMap().put(fieldName, fieldAlias);
+		return this;
 	}
 
 	public HibernateEvaluatorBuilder defaultRuleFactory() throws QueryBuilderEvaluatorException {
 		return defaultRuleFactory(null);
-	}
-
-	public HibernateEvaluatorBuilder addAssociationAlias(final String associationName, final String alias) {
-		getMap().put(associationName, alias);
-		return this;
 	}
 
 	public HibernateEvaluatorBuilder defaultRuleFactory(
@@ -70,8 +82,8 @@ public class HibernateEvaluatorBuilder extends EvaluatorBuilder<Criterion, Hiber
 
 	@Override
 	protected void beforeBuild() {
-		setContextSupplier(new HibernateContext(entityNameSeparator != null ? entityNameSeparator : ".", getMap())); //$NON-NLS-1$
-		map = null;
-		entityNameSeparator = null;
+		setContextSupplier(new HibernateContext(entityFieldSeparator != null ? entityFieldSeparator : ".", getEntityMap(), getFieldMap())); //$NON-NLS-1$
+		entityAliasMap = null;
+		entityFieldSeparator = null;
 	}
 }

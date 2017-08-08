@@ -19,7 +19,7 @@ public class HibernateDemo extends AbstractDemo {
 	public static void main(final String[] args) throws QueryBuilderEvaluatorException, IOException {
 		// Configure the evaluator.
 		final HibernateEvaluatorBuilder builder = new HibernateEvaluatorBuilder().defaults();
-		builder.addAssociationAlias("parent", "p");
+		builder.addEntityAlias("parent", "p");
 		final IQueryBuilderEvaluator<Criterion, HibernateContext> evaluator = builder.build();
 
 		// Get test data

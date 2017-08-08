@@ -13,6 +13,7 @@ public class QueryBuilderEvaluatorException extends Exception {
 		public static final String UNSUPPORTED_OPERATOR = "UNSUPPORTED_OPERATOR"; //$NON-NLS-1$
 		public static final String INVALID_RULESET = "INVALID_RULESET"; //$NON-NLS-1$
 		public static final String EMPTY_RULE = "EMPTY_RULE"; //$NON-NLS-1$
+		public static final String UNSUPPORTED_FIELD = "UNSUPPORTED_FIELD"; //$NON-NLS-1$
 	}
 
 	private static final long serialVersionUID = 1L;
