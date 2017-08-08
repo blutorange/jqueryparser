@@ -1,5 +1,6 @@
 package com.github.blutorange.jqueryparser.hibernate;
 
+import java.text.DateFormat;
 import java.util.function.Consumer;
 
 import org.eclipse.jdt.annotation.Nullable;
@@ -24,14 +25,17 @@ public class HibernateEvaluatorBuilder extends EvaluatorBuilder<Criterion, Hiber
 	private Builder<String, String> fieldAliasMap;
 
 	@Nullable
+	private DateFormat dateFormat;
+
+	@Nullable
 	private String entityFieldSeparator;
 
 	public HibernateEvaluatorBuilder() {
 		this("."); //$NON-NLS-1$
 	}
 
-	public HibernateEvaluatorBuilder(final String entityFieldPrefix) {
-		this.entityFieldSeparator = entityFieldPrefix;
+	public HibernateEvaluatorBuilder(final String entityFieldSeparator) {
+		this.entityFieldSeparator = entityFieldSeparator;
 	}
 
 	private ImmutableMap.Builder<String, String> getEntityMap() {
@@ -40,6 +44,16 @@ public class HibernateEvaluatorBuilder extends EvaluatorBuilder<Criterion, Hiber
 
 	private ImmutableMap.Builder<String, String> getFieldMap() {
 		return fieldAliasMap != null ? fieldAliasMap : (fieldAliasMap = new ImmutableMap.Builder<>());
+	}
+	
+	public HibernateEvaluatorBuilder setEntityFieldSeparator(final String entityFieldSeparator) {
+		this.entityFieldSeparator = entityFieldSeparator;
+		return this;
+	}
+	
+	public HibernateEvaluatorBuilder setDateFormat(final DateFormat dateFormat) {
+		this.dateFormat = dateFormat;
+		return this;
 	}
 
 	public HibernateEvaluatorBuilder addEntityAlias(final String entityName, final String alias) {
@@ -82,8 +96,11 @@ public class HibernateEvaluatorBuilder extends EvaluatorBuilder<Criterion, Hiber
 
 	@Override
 	protected void beforeBuild() {
-		setContextSupplier(new HibernateContext(entityFieldSeparator != null ? entityFieldSeparator : ".", getEntityMap(), getFieldMap())); //$NON-NLS-1$
-		entityAliasMap = null;
-		entityFieldSeparator = null;
+		final String entityFieldSeparator = this.entityFieldSeparator != null ? this.entityFieldSeparator : ".";
+		final DateFormat dateFormat = this.dateFormat != null ? this.dateFormat : DateFormat.getDateInstance();
+		setContextSupplier(new HibernateContext(entityFieldSeparator, dateFormat, getEntityMap(), getFieldMap())); 
+		this.entityAliasMap = null;
+		this.entityFieldSeparator = null;
+		this.dateFormat = null;
 	}
 }

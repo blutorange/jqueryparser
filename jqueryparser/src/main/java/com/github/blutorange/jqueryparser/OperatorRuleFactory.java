@@ -42,7 +42,7 @@ public class OperatorRuleFactory<@NonNull T, @NonNull S, @NonNull C extends IRul
 			final IOperator<T, C, S> operator = operators.get(operatorString);
 			if (operator == null)
 				throw new QueryBuilderEvaluatorException(Codes.UNSUPPORTED_OPERATOR, operatorString);
-			return operator.operate(s, values);
+			return operator.operate(context, s, values);
 		}
 	}
 }

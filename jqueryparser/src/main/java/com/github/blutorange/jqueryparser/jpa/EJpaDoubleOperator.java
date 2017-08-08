@@ -14,7 +14,7 @@ import com.github.blutorange.jqueryparser.IOperatorNameProviding;
 import com.github.blutorange.jqueryparser.QueryBuilderEvaluatorException;
 import com.github.blutorange.jqueryparser.QueryBuilderEvaluatorException.Codes;
 
-public enum EJpaDoubleOperator implements IOperator<Predicate, IJpaContext, IJpaRuleContext>, IOperatorNameProviding {
+enum EJpaDoubleOperator implements IOperator<Predicate, IJpaContext, IJpaRuleContext>, IOperatorNameProviding {
 	IS_NULL(0, (cb, field, vals) -> cb.isNull(field)),
 	IS_NOT_NULL(0, (cb, field, vals) -> cb.isNotNull(field)),
 	IS_EMPTY(0, (cb, field, vals) -> cb.or(cb.isNull(field), cb.equal(field, ""))),
@@ -46,7 +46,7 @@ public enum EJpaDoubleOperator implements IOperator<Predicate, IJpaContext, IJpa
 	}
 
 	@Override
-	public Predicate operate(final IJpaRuleContext path, @NonNull final String[] values) throws QueryBuilderEvaluatorException {
+	public Predicate operate(final IJpaContext context, final IJpaRuleContext path, @NonNull final String[] values) throws QueryBuilderEvaluatorException {
 		if (values.length < min || values.length > max)
 			throw new QueryBuilderEvaluatorException(Codes.ILLEGAL_NUMBER_OF_VALUES, String.valueOf(values.length));
 		final Double[] doubleValues = new Double[values.length];

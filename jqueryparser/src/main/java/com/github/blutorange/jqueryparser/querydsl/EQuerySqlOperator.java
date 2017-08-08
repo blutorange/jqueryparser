@@ -67,7 +67,7 @@ enum EQuerySqlOperator implements IOperator<BooleanExpression, QuerySqlContext, 
 	}
 
 	@Override
-	public BooleanExpression operate(final SimpleExpression<Object> expr, @NonNull final String[] value)
+	public BooleanExpression operate(final QuerySqlContext context, final SimpleExpression<Object> expr, @NonNull final String[] value)
 			throws QueryBuilderEvaluatorException {
 		if (value.length < min || value.length > max)
 			throw new QueryBuilderEvaluatorException(Codes.ILLEGAL_NUMBER_OF_VALUES, String.valueOf(value.length));

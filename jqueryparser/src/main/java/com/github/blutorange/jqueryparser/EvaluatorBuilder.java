@@ -79,11 +79,11 @@ public class EvaluatorBuilder<@NonNull T, @NonNull C>
 	/**
 	 * @param queryBuilderEvaluator
 	 */
-	protected void afterBuild(final QueryBuilderEvaluator<T, C> queryBuilderEvaluator) {
+	protected void afterBuild(final QueryBuilderEvaluator<T, C> queryBuilderEvaluator) throws QueryBuilderEvaluatorException {
 		// May be overridden.
 	}
 
-	protected void beforeBuild() {
+	protected void beforeBuild() throws QueryBuilderEvaluatorException {
 		// May be overridden.
 	}
 }

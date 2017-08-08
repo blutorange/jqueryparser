@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 @Entity
 @Table(name = "child")
 public class HibernateChild {
@@ -26,6 +28,7 @@ public class HibernateChild {
 	@Column(name = "last_name")
 	public String lastName = "wachsmuth";
 
+	@Nullable
 	@OneToOne(cascade = CascadeType.ALL)
 	public HibernateParent hibernateParent = new HibernateParent();
 
@@ -58,6 +61,7 @@ public class HibernateChild {
 	/**
 	 * @return the hibernateParent
 	 */
+	@Nullable
 	protected HibernateParent getHibernateParent() {
 		return hibernateParent;
 	}
@@ -89,7 +93,7 @@ public class HibernateChild {
 	/**
 	 * @param hibernateParent the hibernateParent to set
 	 */
-	protected HibernateChild setHibernateParent(final HibernateParent hibernateParent) {
+	protected HibernateChild setHibernateParent(@Nullable final HibernateParent hibernateParent) {
 		this.hibernateParent = hibernateParent;
 		return this;
 	}

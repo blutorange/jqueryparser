@@ -9,12 +9,9 @@ import com.github.blutorange.jqueryparser.IOperator;
 import com.github.blutorange.jqueryparser.IOperatorNameProviding;
 import com.github.blutorange.jqueryparser.QueryBuilderEvaluatorException;
 import com.github.blutorange.jqueryparser.QueryBuilderEvaluatorException.Codes;
+import com.querydsl.core.types.Operator;
 
-import de.xima.cmn.criteria.FilterCriterion;
-import de.xima.cmn.criteria.FilterCriterion.Operator;
-import de.xima.cmn.criteria.FilterCriterion.StringOperator;
-
-public enum EXfcStringOperator implements IOperator<FilterCriterion, XfcContext, String>, IOperatorNameProviding {
+enum EXfcStringOperator implements IOperator<FilterCriterion, XfcContext, String>, IOperatorNameProviding {
 	IS_NULL(0, (field, vals) -> new FilterCriterion(field, Operator.IS_NULL)),
 	IS_NOT_NULL(0, (field, vals) -> new FilterCriterion(field, Operator.IS_NULL)),
 	IS_EMPTY(

@@ -5,12 +5,10 @@ import org.eclipse.jdt.annotation.NonNull;
 import com.github.blutorange.jqueryparser.ICondition;
 import com.github.blutorange.jqueryparser.NonNullBiFunction;
 
-import de.xima.cmn.criteria.FilterCriterion;
-
 /**
  * !l = (l||!l)&&!l
  */
-public enum EXfcCondition implements ICondition<FilterCriterion, XfcContext> {
+enum EXfcCondition implements ICondition<FilterCriterion, XfcContext> {
 	AND((l,r) -> l.and(r)),
 	OR((l,r) -> l.or(r)),
 	NOR((l,r) -> l.orNot(l).andNot(l).andNot(r)),

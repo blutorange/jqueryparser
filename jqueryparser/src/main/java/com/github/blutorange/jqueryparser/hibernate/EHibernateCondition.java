@@ -7,7 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import com.github.blutorange.jqueryparser.ICondition;
 import com.github.blutorange.jqueryparser.NonNullBiFunction;
 
-public enum EHibernateCondition implements ICondition<Criterion, HibernateContext> {
+enum EHibernateCondition implements ICondition<Criterion, HibernateContext> {
 	AND((l,r) -> Restrictions.and(l, r)),
 	OR((l,r) -> Restrictions.or(l, r)),
 	NOR((l,r) -> Restrictions.not(Restrictions.or(l,r))),

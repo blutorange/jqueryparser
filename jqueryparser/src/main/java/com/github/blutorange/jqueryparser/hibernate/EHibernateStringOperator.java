@@ -12,7 +12,7 @@ import com.github.blutorange.jqueryparser.IOperatorNameProviding;
 import com.github.blutorange.jqueryparser.QueryBuilderEvaluatorException;
 import com.github.blutorange.jqueryparser.QueryBuilderEvaluatorException.Codes;
 
-public enum EHibernateStringOperator implements IOperator<Criterion, HibernateContext, String>, IOperatorNameProviding {
+enum EHibernateStringOperator implements IOperator<Criterion, HibernateContext, String>, IOperatorNameProviding {
 	IS_NULL(0, (field, vals) -> Restrictions.isNull(field)),
 	IS_NOT_NULL(0, (field, vals) -> Restrictions.isNotNull(field)),
 	IS_EMPTY(0, (field, vals) -> Restrictions.isEmpty(field)),
@@ -44,7 +44,7 @@ public enum EHibernateStringOperator implements IOperator<Criterion, HibernateCo
 	}
 
 	@Override
-	public Criterion operate(final String field, @NonNull final String [] values)
+	public Criterion operate(final HibernateContext context, final String field, @NonNull final String [] values)
 			throws QueryBuilderEvaluatorException {
 		if (values.length < min || values.length > max)
 			throw new QueryBuilderEvaluatorException(Codes.ILLEGAL_NUMBER_OF_VALUES, String.valueOf(values.length));

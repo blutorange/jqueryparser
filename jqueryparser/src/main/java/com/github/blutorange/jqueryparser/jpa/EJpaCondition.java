@@ -5,7 +5,7 @@ import javax.persistence.criteria.Predicate;
 
 import com.github.blutorange.jqueryparser.ICondition;
 
-public enum EJpaCondition implements ICondition<Predicate, IJpaContext> {
+enum EJpaCondition implements ICondition<Predicate, IJpaContext> {
 	AND((cb,l,r) -> cb.and(l,r)),
 	OR((cb,l,r) -> cb.or(l,r)),
 	NOR((cb,l,r) -> cb.or(l,r).not()),
