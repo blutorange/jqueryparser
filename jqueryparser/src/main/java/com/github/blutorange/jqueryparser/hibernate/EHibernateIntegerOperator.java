@@ -53,7 +53,7 @@ enum EHibernateIntegerOperator
 				intValues[i] = Integer.valueOf(values[i], 10);
 			}
 			catch (final NumberFormatException e) {
-				throw new QueryBuilderEvaluatorException(Codes.BAD_FORMAT, "not a number: " + values[i], e);
+				throw new QueryBuilderEvaluatorException(Codes.BAD_FORMAT, "not a number: " + values[i], e); //$NON-NLS-1$
 			}
 		return mapper.map(field, intValues);
 	}

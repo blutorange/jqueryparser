@@ -12,14 +12,27 @@
 
 	<repositories>
 		<repository>
-			<id>CT84625</id>
+			<id>CT84625-libs</id>
 			<name>CT84625-releases</name>
 			<url>http://artifactory.xima-services.de/artifactory/libs-release-local</url>
+		</repository>
+		<repository>
+			<id>CT84625-release</id>
+			<name>CT84625-releases</name>
+			<url>http://artifactory.xima-services.de/artifactory/ext-release-local</url>
+		</repository>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://repo1.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 
 	<properties>
-		<xfc-version>5.0.0</xfc-version>
 		<m2e.jdt.annotationpath>/nullannotation/src/main/java</m2e.jdt.annotationpath>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<fast-json-version>1.2.35</fast-json-version>
@@ -32,23 +45,25 @@
 		<maven-source-plugin-version>3.0.1</maven-source-plugin-version>
 		<querydsl-version>4.1.4</querydsl-version>
 		<log4j-version>[1.2.16,)</log4j-version>
-
+		<hibernate-version>5.2.4.Final</hibernate-version>
+		<apache-commons-io-version>2.5</apache-commons-io-version>
+		<apache-commons-lang-version>3.6</apache-commons-lang-version>
+		<junit-version>3.8.1</junit-version>
+		<xfc-version>4.6.0</xfc-version>
 	</properties>
 
 	<dependencies>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-io -->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
+			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>1.3.2</version>
+			<version>${apache-commons-io-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.2.4.Final</version>
+			<version>${hibernate-version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -74,32 +89,38 @@
 			<groupId>org.eclipse.jdt</groupId>
 			<artifactId>org.eclipse.jdt.annotation</artifactId>
 			<version>${eclipse-annotation-version}</version>
+			<scope>provided</scope>			
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.6</version>
+			<version>${apache-commons-lang-version}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>22.0</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>${fast-json-version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.github.blutorange</groupId>
+			<artifactId>nullannotation</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -127,7 +148,6 @@
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-plugin-version}</version>

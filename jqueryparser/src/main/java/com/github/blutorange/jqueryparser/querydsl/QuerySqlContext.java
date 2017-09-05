@@ -14,7 +14,7 @@ import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.dsl.SimpleExpression;
 import com.querydsl.sql.RelationalPath;
 
-public class QuerySqlContext implements IRuleContextProviding<QuerySqlContext, SimpleExpression<Object>> {
+class QuerySqlContext implements IRuleContextProviding<QuerySqlContext, SimpleExpression<Object>> {
 
 	private Map<String, SimpleExpression<Object>> map;
 

@@ -1,11 +1,11 @@
 package com.github.blutorange.jqueryparser.hibernate;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import com.github.blutorange.jqueryparser.IOperator;
@@ -22,12 +22,7 @@ enum EHibernateDateOperator implements IOperator<Criterion, HibernateContext, St
 	NOT_EQUAL(1, (field, vals) -> Restrictions.ne(field, vals[0])),
 	IN(0, Integer.MAX_VALUE, (field, vals) -> Restrictions.in(field, (Object[])vals)),
 	NOT_IN(0, Integer.MAX_VALUE, (field, vals) -> Restrictions.not(Restrictions.in(field, (Object[])vals))),
-	CONTAINS(1, (field, vals) -> Restrictions.ilike(field, vals[0], MatchMode.ANYWHERE)),
-	BEGINS_WITH(1, (field, vals) -> Restrictions.ilike(field, vals[0], MatchMode.START)),
-	ENDS_WITH(1, (field, vals) -> Restrictions.ilike(field, vals[0], MatchMode.END)),
-	NOT_CONTAINS(1, (field, vals) -> Restrictions.not(Restrictions.ilike(field, vals[0], MatchMode.ANYWHERE))),
-	NOT_BEGINS_WITH(1, (field, vals) -> Restrictions.not(Restrictions.ilike(field, vals[0], MatchMode.START))),
-	NOT_ENDS_WITH(1, (field, vals) -> Restrictions.not(Restrictions.ilike(field, vals[0], MatchMode.END))),
+	LESS(1, (field, vals) -> Restrictions.le(field, vals[0]))
 	;
 
 	private int min;
@@ -51,7 +46,12 @@ enum EHibernateDateOperator implements IOperator<Criterion, HibernateContext, St
 			throw new QueryBuilderEvaluatorException(Codes.ILLEGAL_NUMBER_OF_VALUES, String.valueOf(values.length));
 		final Date[] dateVals = new Date[values.length];
 		for (int i = values.length; i-->0;)
-			dateVals[i] = context.getDateFormat().parse(values[i]);
+			try {
+				dateVals[i] = context.getDateFormat().parse(values[i]);
+			}
+			catch (final ParseException e) {
+				throw new QueryBuilderEvaluatorException(Codes.BAD_FORMAT, "not a date " + values[i], e); //$NON-NLS-1$
+			}
 		return mapper.map(field, dateVals);
 	}
 

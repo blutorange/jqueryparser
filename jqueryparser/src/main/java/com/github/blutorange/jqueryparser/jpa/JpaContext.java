@@ -22,7 +22,7 @@ class JpaContext implements IJpaContext {
 		this.pathMap = pathMap;
 		this.pathFieldSeparator = pathFieldSeparator;
 	}
-	
+
 	JpaContext(final String pathFieldSeparator, final CriteriaBuilder criteriaBuilder, final ImmutableMap.Builder<String, Path<?>> pathMap) {
 		this(pathFieldSeparator, criteriaBuilder, pathMap.build());
 	}
@@ -52,10 +52,10 @@ class JpaContext implements IJpaContext {
 		}
 		final Path<?> path = pathMap.get(pathName);
 		if (path == null)
-			throw new QueryBuilderEvaluatorException(Codes.UNSUPPORTED_FIELD, "no path set for " + pathName);
+			throw new QueryBuilderEvaluatorException(Codes.UNSUPPORTED_FIELD, "no path set for " + pathName); //$NON-NLS-1$
 		return new JpaRuleContext(path, fieldName);
 	}
-	
+
 	protected class JpaRuleContext implements IJpaRuleContext {
 		private final String fieldName;
 		private final Path<?> path;
@@ -74,7 +74,7 @@ class JpaContext implements IJpaContext {
 		public Path<@Nullable String> getStringPath() throws QueryBuilderEvaluatorException {
 			return assertPath(path.get(fieldName), String.class);
 		}
-		
+
 		@Override
 		public Path<? extends Integer> getIntegerPath() throws QueryBuilderEvaluatorException {
 			return assertPath(path.get(fieldName), Integer.class);

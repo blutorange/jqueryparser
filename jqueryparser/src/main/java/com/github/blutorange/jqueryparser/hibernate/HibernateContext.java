@@ -6,7 +6,7 @@ import com.github.blutorange.jqueryparser.IRuleContextProviding;
 import com.github.blutorange.jqueryparser.QueryBuilderEvaluatorException;
 import com.google.common.collect.ImmutableMap;
 
-public class HibernateContext implements IRuleContextProviding<HibernateContext, String>{
+class HibernateContext implements IRuleContextProviding<HibernateContext, String>{
 
 	private final ImmutableMap<String, String> entityAliasMap;
 	private final ImmutableMap<String, String> fieldAliasdMap;

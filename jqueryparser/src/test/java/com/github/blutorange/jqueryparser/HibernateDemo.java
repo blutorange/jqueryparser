@@ -11,7 +11,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.criterion.Criterion;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.blutorange.jqueryparser.hibernate.HibernateContext;
 import com.github.blutorange.jqueryparser.hibernate.HibernateEvaluatorBuilder;
 
 @SuppressWarnings({ "nls", "null" })
@@ -20,7 +19,7 @@ public class HibernateDemo extends AbstractDemo {
 		// Configure the evaluator.
 		final HibernateEvaluatorBuilder builder = new HibernateEvaluatorBuilder().defaults();
 		builder.addEntityAlias("parent", "p");
-		final IQueryBuilderEvaluator<Criterion, HibernateContext> evaluator = builder.build();
+		final IQueryBuilderEvaluator<Criterion, ?> evaluator = builder.build();
 
 		// Get test data
 		final JSONObject group = getGroup("com/github/blutorange/jqueryparser/hibernateDemo.json");

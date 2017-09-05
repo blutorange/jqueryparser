@@ -19,7 +19,20 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.blutorange.jqueryparser.jpa.JpaEvaluatorBuilder;
-
+/**
+ * Illustrates how to setup a conditional query with JPA.
+ * You can configure some options, but the most common use case looks
+ * as follows. Given a JPA path for some entity:
+ * <pre>
+ * Predicate predicate = new JpaEvaluatorBuilder()
+ *   .setCriteriaBuilder(criteriaBuilder)
+ *   .setDefaultPath(jpaPath)
+ *   .build()
+ *   .evaluate(jQueryBuilderJson);
+ * </code>
+ * Now you can apply the predicate to the where clause of your query.
+ * @author madgaksha
+ */
 @SuppressWarnings({ "nls", "null" })
 public class JpaDemo extends AbstractDemo {
 	public static void main(final String[] args) throws QueryBuilderEvaluatorException, IOException {

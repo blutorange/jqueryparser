@@ -45,12 +45,12 @@ public class HibernateEvaluatorBuilder extends EvaluatorBuilder<Criterion, Hiber
 	private ImmutableMap.Builder<String, String> getFieldMap() {
 		return fieldAliasMap != null ? fieldAliasMap : (fieldAliasMap = new ImmutableMap.Builder<>());
 	}
-	
+
 	public HibernateEvaluatorBuilder setEntityFieldSeparator(final String entityFieldSeparator) {
 		this.entityFieldSeparator = entityFieldSeparator;
 		return this;
 	}
-	
+
 	public HibernateEvaluatorBuilder setDateFormat(final DateFormat dateFormat) {
 		this.dateFormat = dateFormat;
 		return this;
@@ -96,9 +96,11 @@ public class HibernateEvaluatorBuilder extends EvaluatorBuilder<Criterion, Hiber
 
 	@Override
 	protected void beforeBuild() {
-		final String entityFieldSeparator = this.entityFieldSeparator != null ? this.entityFieldSeparator : ".";
-		final DateFormat dateFormat = this.dateFormat != null ? this.dateFormat : DateFormat.getDateInstance();
-		setContextSupplier(new HibernateContext(entityFieldSeparator, dateFormat, getEntityMap(), getFieldMap())); 
+		final String entityFieldSeparator = this.entityFieldSeparator != null ? this.entityFieldSeparator : "."; //$NON-NLS-1$
+		DateFormat dateFormat = this.dateFormat;
+		if (dateFormat == null)
+			dateFormat = DateFormat.getDateInstance();
+		setContextSupplier(new HibernateContext(entityFieldSeparator, dateFormat, getEntityMap(), getFieldMap()));
 		this.entityAliasMap = null;
 		this.entityFieldSeparator = null;
 		this.dateFormat = null;
